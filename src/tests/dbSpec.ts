@@ -1,9 +1,10 @@
 import { ProductModel, Product } from '../models/productModel';
-
-const model = new ProductModel();
+import { User, UserModel } from '../models/userModel';
 
 describe('database test', () => {
-  describe('product methods testing', () => {
+  describe('product model methods testing', () => {
+    const model = new ProductModel();
+
     const newProduct: Product = {
       id: 1,
       name: 'p1',
@@ -25,6 +26,23 @@ describe('database test', () => {
       const product = await model.show(newProduct.id as number);
       expect(product.id).toBeDefined();
       expect(product.id).toEqual(newProduct.id);
+    });
+  });
+
+  describe('user model methods testing', () => {
+    const model = new UserModel();
+
+    const newUser: User = {
+      id: 1,
+      firstName: 'mohamed',
+      lastName: 'shaban',
+      password: '123456',
+    };
+
+    it('creating new user', async () => {
+      const createdUser = await model.create(newUser);
+      expect(createdUser.id).toBeDefined();
+      expect(createdUser.firstName).toEqual(createdUser.firstName);
     });
   });
 });
