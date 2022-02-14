@@ -21,4 +21,19 @@ export class ProductModel {
       throw err;
     }
   }
+
+  async index(): Promise<Product[]> {
+    const conn = await pool.connect();
+
+    try {
+      const sql = 'SELECT * FROM products';
+      const result = await conn.query(sql);
+      conn.release();
+      return result.rows;
+    } catch (err) {
+      conn.release();
+      console.log('Indexing Failed', err);
+      throw err;
+    }
+  }
 }

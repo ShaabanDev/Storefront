@@ -15,5 +15,9 @@ describe('database test', () => {
       expect(createdProduct.id).toBeDefined();
       expect(createdProduct.name).toEqual(newProduct.name);
     });
+    it('reading all products', async () => {
+      const allProducts = await model.index();
+      expect(allProducts.length).toBeGreaterThanOrEqual(1);
+    });
   });
 });
