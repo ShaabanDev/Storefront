@@ -54,7 +54,7 @@ describe('database test', () => {
     });
   });
 
-  describe('user model methods testing', () => {
+  describe('order model methods testing', () => {
     const model = new OrderModel();
 
     const newOrder: Order = {
@@ -75,6 +75,11 @@ describe('database test', () => {
     it('getting all orders', async () => {
       const allOrders = await model.index();
       expect(allOrders.length).toBeGreaterThanOrEqual(1);
+    });
+
+    it('updating order by its id', async () => {
+      const order = await model.update(1, 'complete');
+      expect(order.orderstatus as string).toEqual('complete');
     });
   });
 });

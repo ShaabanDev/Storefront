@@ -3,6 +3,7 @@ import pool from '../database';
 export type Order = {
   id: number;
   userId: number;
+  orderstatus?: string;
 };
 
 export type OrderProduct = {
@@ -61,6 +62,21 @@ export class OrderModel {
     } catch (err) {
       conn.release();
       console.log('Getting All Orders Failed', err);
+      throw err;
+    }
+  }
+
+  async update(orderId: number, orderStatus: string): Promise<Order> {
+    const conn = await pool.connect();
+
+    try {
+      const sql = 'UPDATE orders SET orderStatus=$1 WHERE id=$2 RETURNING *';
+      const result = await conn.query(sql, [orderStatus, orderId]);
+      conn.release();
+      return result.rows[0];
+    } catch (err) {
+      conn.release();
+      console.log('Order Updating Failed', err);
       throw err;
     }
   }
