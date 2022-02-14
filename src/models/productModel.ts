@@ -36,4 +36,20 @@ export class ProductModel {
       throw err;
     }
   }
+
+  async show(productId: number): Promise<Product> {
+    const conn = await pool.connect();
+
+    try {
+      const sql = 'SELECT * FROM products WHERE id=$1';
+      const result = await conn.query(sql, [productId]);
+
+      conn.release();
+      return result.rows[0];
+    } catch (err) {
+      conn.release();
+      console.log('Getting Product Failed', err);
+      throw err;
+    }
+  }
 }

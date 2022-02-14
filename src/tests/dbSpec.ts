@@ -15,9 +15,16 @@ describe('database test', () => {
       expect(createdProduct.id).toBeDefined();
       expect(createdProduct.name).toEqual(newProduct.name);
     });
+
     it('reading all products', async () => {
       const allProducts = await model.index();
       expect(allProducts.length).toBeGreaterThanOrEqual(1);
+    });
+
+    it('get one product by its id', async () => {
+      const product = await model.show(newProduct.id as number);
+      expect(product.id).toBeDefined();
+      expect(product.id).toEqual(newProduct.id);
     });
   });
 });
