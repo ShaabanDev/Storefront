@@ -40,9 +40,10 @@ describe('database test', () => {
     };
 
     it('creating new user', async () => {
-      const createdUser = await model.create(newUser);
-      expect(createdUser.id).toBeDefined();
-      expect(createdUser.firstname).toEqual(newUser.firstname);
+      const UserWithToken = await model.create(newUser);
+      expect(UserWithToken.user.id).toBeDefined();
+      expect(UserWithToken.token).toBeDefined();
+      expect(UserWithToken.user.firstname).toEqual(newUser.firstname);
     });
 
     it('getting user by its id', async () => {

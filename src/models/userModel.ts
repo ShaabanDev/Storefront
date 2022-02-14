@@ -1,6 +1,8 @@
 import pool from '../database';
 import dotenv from 'dotenv';
 import bcrypt from 'bcrypt';
+import jwt from 'jsonwebtoken';
+
 dotenv.config();
 export type User = {
   id: number;
@@ -9,8 +11,13 @@ export type User = {
   password: string;
 };
 
+export type UserWithToken = {
+  user: User;
+  token: string;
+};
+
 export class UserModel {
-  async create(newUser: User): Promise<User> {
+  async create(newUser: User): Promise<UserWithToken> {
     newUser.password = await bcrypt.hash(
       newUser.password,
       parseInt(process.env.HASH_ROUND as string)
@@ -26,9 +33,16 @@ export class UserModel {
         newUser.password,
       ]);
       const createdUser = result.rows[0];
+      const token = jwt.sign(
+        { id: createdUser.id },
+        process.env.JWT_SECRET as string,
+        { expiresIn: '30d' }
+      );
+
+      const authUser: UserWithToken = { user: createdUser, token };
       conn.release();
 
-      return createdUser;
+      return authUser;
     } catch (err) {
       conn.release();
       console.log('Inserting Failed', err);
