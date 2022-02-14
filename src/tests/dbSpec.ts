@@ -1,3 +1,4 @@
+import { Order, OrderModel } from '../models/orderModel';
 import { ProductModel, Product } from '../models/productModel';
 import { User, UserModel } from '../models/userModel';
 
@@ -50,6 +51,20 @@ describe('database test', () => {
       const user = await model.show(newUser.id as number);
       expect(user.id).toBeDefined();
       expect(user.firstname).toEqual(newUser.firstname);
+    });
+  });
+
+  describe('user model methods testing', () => {
+    const model = new OrderModel();
+
+    const newOrder: Order = {
+      id: 1,
+      userId: 1,
+    };
+
+    it('creating new order', async () => {
+      const createdOrder = await model.create(1);
+      expect(newOrder.id).toEqual(createdOrder.id);
     });
   });
 });
