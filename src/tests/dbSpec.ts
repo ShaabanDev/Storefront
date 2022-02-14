@@ -34,15 +34,21 @@ describe('database test', () => {
 
     const newUser: User = {
       id: 1,
-      firstName: 'mohamed',
-      lastName: 'shaban',
+      firstname: 'mohamed',
+      lastname: 'shaban',
       password: '123456',
     };
 
     it('creating new user', async () => {
       const createdUser = await model.create(newUser);
       expect(createdUser.id).toBeDefined();
-      expect(createdUser.firstName).toEqual(createdUser.firstName);
+      expect(createdUser.firstname).toEqual(newUser.firstname);
+    });
+
+    it('getting user by its id', async () => {
+      const user = await model.show(newUser.id as number);
+      expect(user.id).toBeDefined();
+      expect(user.firstname).toEqual(newUser.firstname);
     });
   });
 });
