@@ -80,4 +80,32 @@ export class OrderModel {
       throw err;
     }
   }
+
+  async addProduct(
+    orderId: number,
+    productId: number,
+    quantity: number
+  ): Promise<OrderProduct> {
+    const conn = await pool.connect();
+
+    try {
+      let sql = 'SELECT * FROM orders WHERE id=$1';
+      let result = await conn.query(sql, [orderId]);
+      if (result.rows.length && result.rows[0].orderstatus === 'active') {
+        sql =
+          'INSERT INTO order_products (orderId, productId, quantity) VALUES ($1, $2, $3) RETURNING *';
+        result = await conn.query(sql, [orderId, productId, quantity]);
+        conn.release();
+        return result.rows[0];
+      } else {
+        throw new Error('Can not find the order');
+      }
+    } catch (err) {
+      conn.release();
+
+      console.log('Adding Product Failed', err);
+
+      throw err;
+    }
+  }
 }

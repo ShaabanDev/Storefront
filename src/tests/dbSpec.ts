@@ -62,6 +62,12 @@ describe('database test', () => {
       userId: 1,
     };
 
+    const newProduct: Product = {
+      id: 1,
+      name: 'p1',
+      price: 5431.0,
+    };
+
     it('creating new order', async () => {
       const createdOrder = await model.create(1);
       expect(newOrder.id).toEqual(createdOrder.id);
@@ -75,6 +81,15 @@ describe('database test', () => {
     it('getting all orders', async () => {
       const allOrders = await model.index();
       expect(allOrders.length).toBeGreaterThanOrEqual(1);
+    });
+
+    it('adding new product to order', async () => {
+      const order = await model.addProduct(
+        newOrder.id,
+        newProduct.id as number,
+        3
+      );
+      expect(order.quantity).toEqual(3);
     });
 
     it('updating order by its id', async () => {
