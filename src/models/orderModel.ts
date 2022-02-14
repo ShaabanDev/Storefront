@@ -46,7 +46,21 @@ export class OrderModel {
       return result.rows[0];
     } catch (err) {
       conn.release();
-      console.log('Getting Order Failed', err);
+      throw err;
+    }
+  }
+
+  async index(): Promise<Order[]> {
+    const conn = await pool.connect();
+
+    try {
+      const sql = 'SELECT * FROM orders';
+      const result = await conn.query(sql);
+      conn.release();
+      return result.rows;
+    } catch (err) {
+      conn.release();
+      console.log('Getting All Orders Failed', err);
       throw err;
     }
   }
