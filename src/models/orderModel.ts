@@ -35,4 +35,19 @@ export class OrderModel {
       throw err;
     }
   }
+
+  async show(orderId: number): Promise<Order> {
+    const conn = await pool.connect();
+
+    try {
+      const sql = 'SELECT * FROM orders WHERE id=$1';
+      const result = await conn.query(sql, [orderId]);
+      conn.release();
+      return result.rows[0];
+    } catch (err) {
+      conn.release();
+      console.log('Getting Order Failed', err);
+      throw err;
+    }
+  }
 }

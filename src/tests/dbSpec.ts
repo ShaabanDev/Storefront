@@ -66,5 +66,10 @@ describe('database test', () => {
       const createdOrder = await model.create(1);
       expect(newOrder.id).toEqual(createdOrder.id);
     });
+
+    it('getting order by its id', async () => {
+      const createdOrder = await model.show(1);
+      expect(newOrder.id).toEqual(createdOrder.id);
+    });
   });
 });
