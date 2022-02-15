@@ -7,7 +7,9 @@
     "start": "nodemon src/server.ts",
     "watch": "tsc-watch --esModuleInterop src/server.ts --outDir ./dist --onSuccess 'node ./dist/server.js'",
     "test": "set NODE_ENV=test&& tsc && db-migrate --e test down -c 4 && db-migrate --e test up -c 4 && jasmine",
-    "tsc": "tsc"
+    "tsc": "tsc",
+    "migrate:up": "db-migrate up -c 4",
+    "migrate:down": "db-migrate down -c 4"
   },
   "author": "Mohamed Shaban",
   "license": "ISC",
