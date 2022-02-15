@@ -37,12 +37,12 @@ export class OrderModel {
     }
   }
 
-  async show(orderId: number): Promise<Order> {
+  async show(userId: number): Promise<Order> {
     const conn = await pool.connect();
 
     try {
-      const sql = 'SELECT * FROM orders WHERE id=$1';
-      const result = await conn.query(sql, [orderId]);
+      const sql = 'SELECT * FROM orders WHERE userId=$1';
+      const result = await conn.query(sql, [userId]);
       conn.release();
       return result.rows[0];
     } catch (err) {

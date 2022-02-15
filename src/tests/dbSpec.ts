@@ -79,7 +79,7 @@ describe('database test', () => {
       expect(newOrder.id).toEqual(createdOrder.id);
     });
 
-    it('getting order by its id', async () => {
+    it('getting order by user id', async () => {
       const order = await model.show(1);
       expect(newOrder.id).toEqual(order.id);
     });
