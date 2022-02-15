@@ -23,12 +23,18 @@ JWT_SECRET=secure
 
 ## Database setup
 
-Database run on the default port: 5432
-Port used: Default postgres TCP port 5432
-Development database - storefront_dev
-Test Database - storefront_test
-User: postgres
-Password: 1234
+-Database run on the default port: 5432.
 
-Running `npm run migrate:up ` will setup all the tables you need
-Running `npm run migrate:down` will drop all the tables
+-Port used: Default postgres TCP port 5432.
+
+-Development database - storefront_dev.
+
+-Test Database - storefront_test.
+
+-User: postgres.
+
+-Password: 1234.
+
+-Running `npm run migrate:up ` will setup all the tables you need.
+
+-Running `npm run migrate:down` will drop all the tables.
