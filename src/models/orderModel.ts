@@ -61,7 +61,6 @@ export class OrderModel {
       return result.rows;
     } catch (err) {
       conn.release();
-      console.log('Getting All Orders Failed', err);
       throw err;
     }
   }
@@ -76,7 +75,6 @@ export class OrderModel {
       return result.rows[0];
     } catch (err) {
       conn.release();
-      console.log('Order Updating Failed', err);
       throw err;
     }
   }
@@ -102,9 +100,6 @@ export class OrderModel {
       }
     } catch (err) {
       conn.release();
-
-      console.log('Adding Product Failed', err);
-
       throw err;
     }
   }

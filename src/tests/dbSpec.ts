@@ -52,6 +52,12 @@ describe('database test', () => {
       expect(user.id).toBeDefined();
       expect(user.firstname).toEqual(newUser.firstname);
     });
+
+    it('getting all users', async () => {
+      const allUsers = await model.index();
+      expect(allUsers.length).toBeGreaterThanOrEqual(1);
+      console.log(allUsers);
+    });
   });
 
   describe('order model methods testing', () => {

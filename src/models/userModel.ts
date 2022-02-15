@@ -17,6 +17,20 @@ export type UserWithToken = {
 };
 
 export class UserModel {
+  async index(): Promise<User[]> {
+    const conn = await pool.connect();
+
+    try {
+      const sql = 'SELECT id, firstname, lastname FROM users';
+
+      const result = await conn.query(sql);
+      conn.release();
+      return result.rows;
+    } catch (err) {
+      conn.release();
+      throw err;
+    }
+  }
   async create(newUser: User): Promise<UserWithToken> {
     newUser.password = await bcrypt.hash(
       newUser.password,
@@ -45,7 +59,6 @@ export class UserModel {
       return authUser;
     } catch (err) {
       conn.release();
-      console.log('Inserting Failed', err);
       throw err;
     }
   }
@@ -60,9 +73,6 @@ export class UserModel {
       return result.rows[0];
     } catch (err) {
       conn.release();
-
-      console.log('Getting User Failed', err);
-
       throw err;
     }
   }

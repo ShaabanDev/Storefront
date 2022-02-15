@@ -17,7 +17,6 @@ export class ProductModel {
       return result.rows[0];
     } catch (err) {
       conn.release();
-      console.log('Inserting Failed', err);
       throw err;
     }
   }
@@ -32,7 +31,6 @@ export class ProductModel {
       return result.rows;
     } catch (err) {
       conn.release();
-      console.log('Indexing Failed', err);
       throw err;
     }
   }
@@ -48,7 +46,6 @@ export class ProductModel {
       return result.rows[0];
     } catch (err) {
       conn.release();
-      console.log('Getting Product Failed', err);
       throw err;
     }
   }
