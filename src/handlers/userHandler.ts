@@ -1,6 +1,6 @@
-import express, { Router, Request, Response } from 'express';
+import express, { Request, Response } from 'express';
 import { protect } from '../middlewares/auth';
-import { User, UserModel } from '../models/userModel';
+import { UserModel } from '../models/userModel';
 
 const userModel = new UserModel();
 const createUser = async (req: Request, res: Response) => {
@@ -24,11 +24,11 @@ const createUser = async (req: Request, res: Response) => {
 const showUser = async (req: Request, res: Response) => {
   const userId: number = parseInt(req.params.id);
   try {
-    const newUser = await userModel.show(userId);
+    const user = await userModel.show(userId);
     res.status(201).json({
-      id: newUser.id,
-      firstname: newUser.firstname,
-      lastname: newUser.lastname,
+      id: user.id,
+      firstname: user.firstname,
+      lastname: user.lastname,
     });
   } catch (error) {
     res.status(404).send(error);
@@ -49,5 +49,3 @@ export const userHandlers = (app: express.Application): void => {
   app.get('/api/users/:id', protect, showUser);
   app.get('/api/users/index', protect, indexUsers);
 };
-// router.post('/users/create', createUser);
-// export default router;
