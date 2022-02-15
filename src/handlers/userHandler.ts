@@ -25,7 +25,7 @@ const showUser = async (req: Request, res: Response) => {
   const userId: number = parseInt(req.params.id);
   try {
     const user = await userModel.show(userId);
-    res.status(201).json({
+    res.status(200).json({
       id: user.id,
       firstname: user.firstname,
       lastname: user.lastname,
@@ -38,6 +38,7 @@ const showUser = async (req: Request, res: Response) => {
 const indexUsers = async (req: Request, res: Response) => {
   try {
     const users = await userModel.index();
+
     res.status(200).json(users);
   } catch (error) {
     res.status(404).send(error);
@@ -46,6 +47,6 @@ const indexUsers = async (req: Request, res: Response) => {
 
 export const userHandlers = (app: express.Application): void => {
   app.post('/api/users/create', createUser);
-  app.get('/api/users/:id', protect, showUser);
   app.get('/api/users/index', protect, indexUsers);
+  app.get('/api/users/:id', protect, showUser);
 };

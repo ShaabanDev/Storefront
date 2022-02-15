@@ -20,14 +20,19 @@ export const protect = async (
       ) as JwtPayload;
 
       const userId = (await model.show(decodedToken.id as number)).id;
+
       if (userId) {
         return next();
       }
       res.status(404).json({
         message: 'Failed to authorize user, Token Failed',
       });
+
       throw new Error();
     } catch (error) {
+      console.log('heeeeerrre');
+
+      console.log(error);
       res.status(404).json({
         message: 'Failed to authorize user, Token Failed',
       });

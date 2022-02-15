@@ -59,6 +59,7 @@ export class UserModel {
       return authUser;
     } catch (err) {
       conn.release();
+      console.log(err);
       throw err;
     }
   }
@@ -66,7 +67,7 @@ export class UserModel {
   async show(userId: number): Promise<User> {
     const conn = await pool.connect();
     try {
-      const sql = 'SELECT * FROM users WHERE id=$1';
+      const sql = 'SELECT id, firstname, lastname FROM users WHERE id=$1';
       const result = await conn.query(sql, [userId]);
 
       conn.release();

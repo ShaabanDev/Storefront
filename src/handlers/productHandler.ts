@@ -34,7 +34,7 @@ const createProduct = async (req: Request, res: Response) => {
 };
 
 export const productHandlers = (app: express.Application): void => {
+  app.post('/api/products/create', protect, createProduct);
   app.get('/api/products/index', indexProducts);
   app.get('/api/products/:id', showProduct);
-  app.post('/api/products/create', protect, createProduct);
 };
