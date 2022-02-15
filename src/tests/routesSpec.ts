@@ -61,4 +61,13 @@ describe('all routes testing', () => {
       expect(response.status).toBe(200);
     });
   });
+
+  describe('order routes test', () => {
+    it('show route response to be 200', async () => {
+      const response = await request
+        .get('/api/orders/1')
+        .set('Authorization', `Bearer ${token}`);
+      expect(response.status).toBe(200);
+    });
+  });
 });
