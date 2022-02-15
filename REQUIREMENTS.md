@@ -48,7 +48,7 @@ These are the notes from a meeting with the frontend developer that describe wha
 - id of each product in the order
 - quantity of each product in the order
 - userid
-- status of order (active or complete)
+- orderStatus (active or complete)
 
 ## Database Schema
 
